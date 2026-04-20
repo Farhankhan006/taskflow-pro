@@ -1,0 +1,77 @@
+// Version: 1.0.0
+type Category__228977961 = {#Finance; #Health; #Personal; #Study; #Work};
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type Priority__367640877 = {#High; #Low; #Medium};
+type ProductivityLog__652171484 =
+  {
+    completedTaskIds : [TaskId__981218199];
+    date : Text;
+    totalCompleted : Nat;
+    userId : UserId__30695610
+  };
+type TaskId__207642484 = Nat;
+type TaskId__981218199 = TaskId__207642484;
+type Task__474584201 =
+  {
+    category : Category__228977961;
+    completed : Bool;
+    createdAt : Timestamp__310934834;
+    deadline : ?Timestamp__310934834;
+    description : Text;
+    id : TaskId__981218199;
+    priority : Priority__367640877;
+    title : Text;
+    updatedAt : Timestamp__310934834;
+    userId : UserId__30695610
+  };
+type Timestamp__301639476 = Int;
+type Timestamp__310934834 = Timestamp__301639476;
+type UserId__158757552 = Principal;
+type UserId__30695610 = UserId__158757552;
+type UserRole__1054455867 = {#admin; #guest; #user};
+type UserSettings__213032317 =
+  {
+    createdAt : Timestamp__310934834;
+    displayName : Text;
+    notificationsEnabled : Bool;
+    theme : {#dark; #light};
+    updatedAt : Timestamp__310934834;
+    userId : UserId__30695610
+  };
+actor {
+  stable var _nextTaskIdValue : Nat;
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1054455867>
+    };
+  stable nextTaskId : {var value : Nat};
+  stable productivityLogs :
+    {
+      var root : Node__46230540<Text, ProductivityLog__652171484>;
+      var size : Nat__490723111
+    };
+  stable tasks :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Task__474584201]];
+      var elementIndex : Nat__490723111
+    };
+  stable userSettings :
+    {
+      var root : Node__46230540<Principal, UserSettings__213032317>;
+      var size : Nat__490723111
+    }
+};

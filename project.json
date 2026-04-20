@@ -1,0 +1,23 @@
+{
+  "overview": "TaskFlow Pro is a premium mobile-first task management web app with a Notion+Linear level of polish. Users can manage tasks with priorities, deadlines, and categories, track weekly productivity with charts, and view all their work through a beautiful dashboard. Built with dark mode, glassmorphism accents, smooth animations, and bottom navigation for a native app feel.",
+  "features": [
+    "Authentication with session persistence and protected routes",
+    "Premium dashboard with productivity stats and weekly chart",
+    "Task CRUD with priorities, deadlines, and categories",
+    "Instant search and multi-filter system",
+    "Productivity tracker with weekly/monthly insights",
+    "Profile section with settings and dark mode toggle",
+    "Mobile-first bottom navigation bar",
+    "Dark mode with glassmorphism accents",
+    "Smooth page and task completion animations"
+  ],
+  "category": "productivity",
+  "tags": [
+    "task-management",
+    "productivity",
+    "mobile-first",
+    "dark-mode",
+    "premium-ui"
+  ],
+  "last_updated": "2026-04-20T11:37:04.738Z"
+}

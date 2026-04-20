@@ -1,0 +1,118 @@
+type WeeklyChart = 
+ record {
+   days: vec DayStats;
+   totalThisWeek: nat;
+ };
+type UserSettings = 
+ record {
+   createdAt: Timestamp;
+   displayName: text;
+   notificationsEnabled: bool;
+   theme: variant {
+            dark;
+            light;
+          };
+   updatedAt: Timestamp;
+   userId: UserId;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserId = principal;
+type UpdateTaskInput = 
+ record {
+   category: opt Category;
+   completed: opt bool;
+   deadline: opt opt Timestamp;
+   description: opt text;
+   priority: opt Priority;
+   title: opt text;
+ };
+type UpdateSettingsInput = 
+ record {
+   displayName: opt text;
+   notificationsEnabled: opt bool;
+   theme: opt variant {
+                dark;
+                light;
+              };
+ };
+type Timestamp = int;
+type TaskId = nat;
+type TaskFilter = 
+ record {
+   category: opt Category;
+   completed: opt bool;
+   deadlineFrom: opt Timestamp;
+   deadlineTo: opt Timestamp;
+   priority: opt Priority;
+   searchText: opt text;
+ };
+type Task = 
+ record {
+   category: Category;
+   completed: bool;
+   createdAt: Timestamp;
+   deadline: opt Timestamp;
+   description: text;
+   id: TaskId;
+   priority: Priority;
+   title: text;
+   updatedAt: Timestamp;
+   userId: UserId;
+ };
+type ProductivityStats = 
+ record {
+   completedTasks: nat;
+   completionRate: nat;
+   monthlyCompleted: nat;
+   pendingTasks: nat;
+   totalTasks: nat;
+   weeklyChart: WeeklyChart;
+ };
+type Priority = 
+ variant {
+   High;
+   Low;
+   Medium;
+ };
+type DayStats = 
+ record {
+   completedCount: nat;
+   date: text;
+ };
+type CreateTaskInput = 
+ record {
+   category: Category;
+   deadline: opt Timestamp;
+   description: text;
+   priority: Priority;
+   title: text;
+ };
+type Category = 
+ variant {
+   Finance;
+   Health;
+   Personal;
+   Study;
+   Work;
+ };
+service : {
+  _initializeAccessControl: () -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  createTask: (input: CreateTaskInput) -> (Task);
+  deleteTask: (taskId: nat) -> (bool);
+  getCallerUserRole: () -> (UserRole) query;
+  getProductivityStats: () -> (ProductivityStats) query;
+  getTask: (taskId: nat) -> (opt Task) query;
+  getTasks: (filter: opt TaskFilter) -> (vec Task) query;
+  getUserSettings: () -> (opt UserSettings) query;
+  getWeeklyChart: () -> (WeeklyChart) query;
+  isCallerAdmin: () -> (bool) query;
+  toggleTaskComplete: (taskId: nat) -> (opt Task);
+  updateTask: (taskId: nat, input: UpdateTaskInput) -> (opt Task);
+  updateUserSettings: (input: UpdateSettingsInput) -> (UserSettings);
+}
